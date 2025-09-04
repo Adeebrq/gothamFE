@@ -48,6 +48,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const { token, user } = useAuth()
   const wsRef = useRef<WebSocket | null>(null)
   const wsUrl = process.env.NEXT_PUBLIC_WS_URL
+  
 
   useEffect(() => {
     if (currentRoom) {
@@ -120,7 +121,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Join room function - matches your backend WebSocket logic
   const joinRoom = (roomId: string, roomName: string) => {
-    if (!ws || ws.readyState !== WebSocket.OPEN) {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
       console.error('WebSocket not connected. Cannot join room.')
       return
     }
@@ -131,7 +132,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setMessages([])
     setCurrentRoomName(roomName)
     
-    ws.send(JSON.stringify({
+    wsRef.current.send(JSON.stringify({
       type: 'join',
       payload: { roomId, roomName }
     }))

@@ -34,12 +34,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (savedToken) {
       try {
         const decoded = JSON.parse(atob(savedToken.split('.')[1]))
-        setToken(savedToken)
-        setUser({
-          userId: decoded.userId,
-          username: decoded.username,
-          master_admin: decoded.master_admin
-        })
+        const nowSeconds = Math.floor(Date.now() / 1000)
+        if (decoded.exp && decoded.exp <= nowSeconds) {
+          localStorage.removeItem('token')
+        } else {
+          setToken(savedToken)
+          setUser({
+            userId: decoded.userId,
+            username: decoded.username,
+            master_admin: decoded.master_admin
+          })
+        }
       } catch (error) {
         localStorage.removeItem('token')
       }
@@ -62,6 +67,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if (response.ok && data.res === true && data.jwtToken) {
         const decoded = JSON.parse(atob(data.jwtToken.split('.')[1]))
+        const nowSeconds = Math.floor(Date.now() / 1000)
+        if (decoded.exp && decoded.exp <= nowSeconds) {
+          setLoading(false)
+          return { success: false, error: 'Received expired token' }
+        }
         
         setToken(data.jwtToken)
         setUser({

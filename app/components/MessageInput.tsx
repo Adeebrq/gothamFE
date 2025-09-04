@@ -27,7 +27,7 @@ const MessageInput = () => {
             onChange={(e) => setMessage(e.target.value)}
             placeholder={isDisabled ? "Join a room to start chatting..." : "Type your message..."}
             disabled={isDisabled}
-            className="w-full p-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full p-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed custom-font"
             maxLength={500}
           />
           {message.length > 0 && (

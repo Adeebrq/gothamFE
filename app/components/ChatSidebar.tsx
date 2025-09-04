@@ -1,6 +1,6 @@
 // components/ChatSidebar.tsx
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useChat } from '../hooks/useChat'
 
 const ChatSidebar = () => {
@@ -21,6 +21,14 @@ const ChatSidebar = () => {
     const publicRoomId = '60435625-7026-4210-8c44-7368ed064c51';
     joinRoom(publicRoomId, 'General Chat')
   }
+
+  useEffect(()=>{
+    if(connected){
+        setTimeout(()=>{
+    joinRoom('60435625-7026-4210-8c44-7368ed064c51', 'General Chat')
+        }, 1000)
+    }
+  },[connected])
 
   return (
     <div className="w-80 bg-white border-r border-gray-200 flex flex-col">

@@ -16,7 +16,7 @@ const ChatDashboard = () => {
       <header className="bg-gray-900 text-white p-4 shadow-lg">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold text-blue-400">Gotham Chat</h1>
+            <h1 className="text-2xl font-bold text-blue-400 custom-font">Gotham Chat</h1>
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
               connected ? 'bg-green-600' : 'bg-red-600'
             }`}>
