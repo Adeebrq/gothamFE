@@ -102,6 +102,16 @@ const ChatSidebar = () => {
         </div>
       </div>
 
+      <div className="p-0 custom-border-top bg-transparent relative">
+      <video
+      autoPlay
+      muted
+      playsInline
+      loop
+      className="w-[1080px] h-auto "
+      > <source src='/assets/map4.mov'/></video>
+      </div>
+
       {/* Connection Status */}
       <div className="p-3.5 custom-border-top bg-transparent relative">
         {/* <img src="/assets/cornor.svg" className='absolute top-0 right-0 w-12 h-12 -mr-6.5 -mt-6.5 z-100' alt="" /> */}
