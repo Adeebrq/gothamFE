@@ -1,6 +1,7 @@
 // contexts/AuthContext.tsx
 "use client"
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import {useRouter} from 'next/navigation'
 
 interface User {
   userId: string
@@ -24,6 +25,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null)
   const [token, setToken] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const router= useRouter();
+
+  const homePage= ()=> router.push('/');
 
   const domain = process.env.NEXT_PUBLIC_BE_SERVER
   console.log('Backend domain:', domain)
@@ -138,6 +142,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUser(null)
     setToken(null)
     localStorage.removeItem('token')
+    homePage();
   }
 
   const value: AuthContextType = {

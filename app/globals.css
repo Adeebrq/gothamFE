@@ -19,12 +19,32 @@
 
 .reg-text{
   font-family: "custom2";
+color: #d4edff;                       
+letter-spacing: 0.1em;                
 text-transform: uppercase;
+filter: blur(0.5px);                 
+text-shadow:
+  0 0 10px #66b3ff,                   
+  0 0 2px #41c3fc,                    
+  0 2px 4px #318fb5;  
 }
 
-.custom-font{
+.reg-text-red{
+  font-family: "custom2";
+color: #fed8c0;                       
+letter-spacing: 0.1em;                
+text-transform: uppercase;
+filter: blur(0.5px);                 
+text-shadow:
+  0 0 10px #bf2b54,                   
+  0 0 2px #ce2d5a,                    
+  0 2px 4px #751d45;  
+}
+
+
+.sub-text{
   font-family: "CustomFont" ;
-  text-transform: uppercase;
+  text-transform: lowercase;
 }
 
 
@@ -49,7 +69,88 @@ text-transform: uppercase;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'CustomFont', Arial, Helvetica, sans-serif;
+  background-color: #162329;
+  color: #F7FEFF;
+  font-family: "custom2";
+  text-transform: uppercase;
+}
+
+.custom-border {
+  filter: drop-shadow(10px 10px 60px rgba(254, 0, 0, 0.7));
+  transition: border-color 0.3s ease, filter 0.3s ease;
+  filter: blur(0.5px);  
+  text-shadow:
+    0 0 10px #66b3ff,                   
+    0 0 2px #41c3fc,                    
+    0 2px 4px #318fb5; 
+  border: 2px solid rgba(212, 237, 255, 0.7);
+  border-radius: 8px;
+  box-shadow:
+    0 0 5px 3px #66b3ff,    /* large soft glow */
+    0 0 3px 1px #41c3fc,     /* inner tighter glow */
+    0 2px 8px 2px #318fb5,   /* subtle shadow below */
+    inset 0 0 8px 2px #a1caf1;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;    
+}
+
+.custom-border-top {
+  border-top: 2px solid rgba(212, 237, 255, 0.7); /* top border only */
+  border-radius: 0;  /* optional: reset radius if needed */
+  box-shadow:
+    0 -3px 10px 1px rgba(102, 179, 255, 0.7),  /* glow above border */
+    inset 0 3px 8px 2px rgba(161, 202, 241, 0.7); /* subtle inner highlight */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.custom-border-bottom {
+  border-bottom: 2px solid rgba(212, 237, 255, 0.7);
+  border-radius: 0;
+  z-index: 0;
+
+  box-shadow:
+    0px 3px 10px 1px rgba(102, 179, 255, 0.7),     /* vertical glow only: no horizontal offset or spread */
+    inset 0px -3px 8px 0px rgba(161, 202, 241, 0.7); /* inner glow from bottom, no horizontal offset or spread */
+  
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-border-all {
+  border: 2px solid rgba(212, 237, 255, 0.7);
+  border-radius: 0;
+  box-shadow:
+    0px 3px 10px 1px rgba(102, 179, 255, 0.7),     /* vertical glow only: no horizontal offset or spread */
+    inset 0px -3px 8px 0px rgba(161, 202, 241, 0.7); /* inner glow from bottom, no horizontal offset or spread */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.custom-border:focus {
+  filter: drop-shadow(0 0 12px rgba(48, 138, 255, 1));               
+  outline: none;
+  box-shadow:
+  0 0 10px 3px #66b3ff,    /* large soft glow */
+  0 0 5px 1px #41c3fc,     /* inner tighter glow */
+  0 2px 8px 2px #318fb5,   /* subtle shadow below */
+  inset 0 0 10px 2px #a1caf1;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;   
+  filter: blur(0.5px);  
+}
+.status{
+  filter: blur(0.5px);
+  animation: pulse-combined 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-combined {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0.5px);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.05);
+    filter: blur(0.8px);
+  }
 }

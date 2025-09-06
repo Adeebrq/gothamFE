@@ -10,6 +10,7 @@ interface Message {
   username: string
   content: string
   sent_at: string
+  date: string // New field for formatted date
 }
 
 interface ChatContextType {
@@ -36,6 +37,24 @@ interface ChatContextType {
 }
 
 const ChatContext = createContext<ChatContextType | null>(null)
+
+// Helper function to format date from sent_at timestamp
+const formatDateFromTimestamp = (timestamp: string): string => {
+  const date = new Date(timestamp)
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })
+}
+
+// Helper function to process message and add date field
+const processMessage = (message: any): Message => {
+  return {
+    ...message,
+    date: formatDateFromTimestamp(message.sent_at)
+  }
+}
 
 export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [ws, setWs] = useState<WebSocket | null>(null)
@@ -85,7 +104,9 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             break
             
           case 'message':
-            setMessages(prev => [...prev, payload])
+            // Process the message to add date field
+            const processedMessage = processMessage(payload)
+            setMessages(prev => [...prev, processedMessage])
             break
             
           case 'error':
@@ -182,8 +203,10 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (response.ok) {
         const data = await response.json()
         if (data.type === 'success') {
-          setMessages(data.messages)
-          console.log(`Loaded ${data.messages.length} messages for room ${roomId}`)
+          // Process each message to add the date field
+          const processedMessages = data.messages.map(processMessage)
+          setMessages(processedMessages)
+          console.log(`Loaded ${processedMessages.length} messages for room ${roomId}`)
         } else {
           console.error('Failed to load chat history:', data.message)
         }
