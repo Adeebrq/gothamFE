@@ -4,14 +4,13 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { Router } from 'next/router'
 import { useRouter } from 'next/navigation'
-
+import Header from '../components/header'
+import EncryptedTextReveal from '../components/EncryptedTextReveal'
 
 const Page = () => {
   const [isLogin, setIsLogin] = useState(true)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
   const router = useRouter()
   const { signin, register, loading, isAuthenticated, user } = useAuth()
 
@@ -23,167 +22,128 @@ const Page = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
-    setSuccess('')
-
-
 
     if (!username.trim() || !password.trim()) {
-      setError('Please fill in all fields')
       return
     }
 
     try {
       if (isLogin) {
         const result = await signin(username, password)
-        if (result.success) {
-          setSuccess('Login successful!')
-        } else {
-          setError(result.error || 'Login failed')
-        }
       } else {
         const result = await register(username, password)
         if (result.success) {
-          setSuccess('Registration successful! Please login.')
           setIsLogin(true)
           setPassword('')
-        } else {
-          setError(result.error || 'Registration failed')
         }
       }
     } catch (err) {
-      setError('Something went wrong. Please try again.')
+      // Error handling removed - silently handle errors
     }
   }
 
   const handleToggle = () => {
     setIsLogin(!isLogin)
-    setError('')
-    setSuccess('')
     setUsername('')
     setPassword('')
   }
 
-
-
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '50px auto' }}>
-      <div style={{ border: '2px solid #ccc', padding: '30px', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-        <h1 style={{ textAlign: 'center', marginBottom: '30px', color: '#333' }}>
-          {isLogin ? 'Login' : 'Register'}
-        </h1>
-
-
-        
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-              Username:
-            </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-              disabled={loading}
-              style={{
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-          
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-              Password:
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              disabled={loading}
-              style={{
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                fontSize: '16px'
-              }}
-            />
-          </div>
-
-          {error && (
-            <div style={{
-              backgroundColor: '#ffebee',
-              color: '#c62828',
-              padding: '10px',
-              borderRadius: '4px',
-              marginBottom: '15px',
-              border: '1px solid #ffcdd2'
-            }}>
-              {error}
-            </div>
-          )}
-
-          {success && (
-            <div style={{
-              backgroundColor: '#e8f5e8',
-              color: '#2e7d32',
-              padding: '10px',
-              borderRadius: '4px',
-              marginBottom: '15px',
-              border: '1px solid #c8e6c9'
-            }}>
-              {success}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: '100%',
-              padding: '12px',
-              backgroundColor: loading ? '#ccc' : '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              fontSize: '16px',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              marginBottom: '15px'
-            }}
-          >
-            {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
-          </button>
-        </form>
-
-        <div style={{ textAlign: 'center' }}>
-          <button
-            onClick={handleToggle}
-            disabled={loading}
-            style={{
-              backgroundColor: 'transparent',
-              color: '#007bff',
-              border: 'none',
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              fontSize: '14px'
-            }}
-          >
-            {isLogin ? 'Need an account? Register here' : 'Already have an account? Login here'}
-          </button>
-        </div>
-
-        <div style={{ marginTop: '20px', fontSize: '12px', color: '#666', textAlign: 'center' }}>
-          <p>Testing connection to: {process.env.NEXT_PUBLIC_BE_SERVER}</p>
-          <p>Loading: {loading ? 'Yes' : 'No'}</p>
-          <p>Authenticated: {isAuthenticated ? 'Yes' : 'No'}</p>
-        </div>
+    <div className="h-screen flex flex-col relative overflow-hidden bg-black reg-text">
+      {/* Header - should be above everything */}
+      <div className="relative z-[1000]">
+        <Header />
       </div>
+
+      {/* Background Image - behind everything */}
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-30 z-[1]"
+        style={{ backgroundImage: "url(assets/imgBg.png)" }}
+      />
+
+      {/* Background Video - behind form but above background image */}
+      <video
+        autoPlay
+        muted
+        playsInline
+        loop
+        className="absolute top-0 left-0 w-full h-full object-cover translate-x-[15%] z-[2]"
+      > 
+        <source src='/assets/batmanBg.mp4'/>
+      </video>
+      {/* Main content container - above background elements */}
+      <div className="relative z-[100] p-5 max-w-sm mx-auto mt-12 -translate-x-[400px]">
+        <div className="relative z-[101] border-2 border-gray-300 p-8 rounded-lg custom-border"
+        style={{background: 'url(assets/authModal.svg)', backgroundSize: "cover"}}
+        >
+          <h1 className="text-center mb-8 text-2xl font-semibold">
+  {isLogin ? 
+  <EncryptedTextReveal key="login" text="Login" />
+  :<EncryptedTextReveal key="register" text="Register" />}
+</h1>
+          
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block mb-1 font-bold">
+                <EncryptedTextReveal text=" Username:" />
+              </label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                disabled={loading}
+                className="relative z-[102] w-full p-3 border border-gray-300 rounded text-base custom-border focus:outline-none focus:ring-2 disabled:cursor-not-allowed"
+              />
+            </div>
+            
+            <div className="mb-5">
+              <label className="block mb-1 font-bold">
+              <EncryptedTextReveal text=" Password:" />
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                disabled={loading}
+                className="relative z-[102] w-full p-3 border border-gray-300 rounded text-base  custom-border focus:outline-none focus:ring-2 disabled:cursor-not-allowed"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className={`relative z-[102] w-full p-3 rounded text-base mb-4 transition-colors custom-border-all ${
+                loading 
+                  ? 'bg-[#41c4fc5a] reg-text cursor-not-allowed' 
+                  : 'bg-[#41c4fc5a] hover:bg-[#65d1ff9f] text-white cursor-pointer'
+              }`}
+            >
+              {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Register')}
+            </button>
+          </form>
+
+          <div className="text-center">
+            <button
+              onClick={handleToggle}
+              disabled={loading}
+              className="relative z-[102] bg-transparent reg-text border-none cursor-pointer underline text-sm disabled:cursor-not-allowed disabled:text-gray-400"
+            >
+              {isLogin ? 'Need an account? Register here' : 'Have an account? Login here'}
+            </button>
+          </div>
+        </div>
+      <div className='reg-text-red w-full mt-4 justify-center items-center'><EncryptedTextReveal text="Warning: Passwords cannot be reset. Enter carefully." /></div>
+
+      </div>
+      
+      {/* Footer - should be above background but below form */}
+      <img 
+        src='/assets/footer.svg' 
+        alt="" 
+        className="relative z-[50] -bottom-32"
+      />
     </div>
   )
 }

@@ -123,7 +123,7 @@ const MessageList = () => {
             <div key={date} className="space-y-4">
               {/* Date Header */}
               <div className="flex justify-center sticky top-0 z-10">
-                <div className=" px-3 py-1 rounded-sm text-xs font-medium reg-text shadow-sm custom-border">
+                <div className=" px-3 py-1 rounded-sm text-xs font-medium reg-text shadow-sm ">
                   <EncryptedTextReveal text={formatDateForDisplay(date)} />
                 </div>
               </div>

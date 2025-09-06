@@ -92,8 +92,7 @@ const ChatSidebar = () => {
           </button>
           
           <button
-            onClick={() => joinRoom(crypto.randomUUID(), 'Random Room')}
-            disabled={!connected}
+            disabled={connected}
             className="w-full mt-2  p-3 text-left reg-text custom-border rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div ><EncryptedTextReveal text="Create new room"/></div>
@@ -109,7 +108,7 @@ const ChatSidebar = () => {
       playsInline
       loop
       className="w-[1080px] h-auto "
-      > <source src='/assets/map4.mov'/></video>
+      > <source src='/assets/map4.mp4'/></video>
       </div>
 
       {/* Connection Status */}

@@ -233,11 +233,14 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setMessages([])
   }
 
-  // Auto-connect when token is available
+  // Auto-connect when token is available, disconnect when token is removed
   useEffect(() => {
     if (token && !connected && wsUrl) {
       console.log('Token available, attempting WebSocket connection...')
       connect()
+    } else if (!token && connected) {
+      console.log('Token removed, disconnecting WebSocket...')
+      disconnect()
     }
   }, [token, connected, wsUrl])
 

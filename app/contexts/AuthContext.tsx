@@ -2,6 +2,7 @@
 "use client"
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import {useRouter} from 'next/navigation'
+import { useToast } from './toastContext'
 
 interface User {
   userId: string
@@ -14,8 +15,8 @@ interface AuthContextType {
   token: string | null
   isAuthenticated: boolean
   loading: boolean
-  signin: (username: string, password: string) => Promise<{ success: boolean; error?: string }>
-  register: (username: string, password: string) => Promise<{ success: boolean; error?: string }>
+  signin: (username: string, password: string) => Promise<{ success: boolean }>
+  register: (username: string, password: string) => Promise<{ success: boolean }>
   logout: () => void
 }
 
@@ -26,6 +27,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [token, setToken] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const router= useRouter();
+  const {addToast}= useToast();
 
   const homePage= ()=> router.push('/');
 
@@ -41,6 +43,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const nowSeconds = Math.floor(Date.now() / 1000)
         if (decoded.exp && decoded.exp <= nowSeconds) {
           localStorage.removeItem('token')
+          addToast("Session expired. Please login again.", false)
         } else {
           setToken(savedToken)
           setUser({
@@ -51,12 +54,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
       } catch (error) {
         localStorage.removeItem('token')
+        addToast("Invalid session data. Please login again.", false)
       }
     }
     setLoading(false)
-  }, [])
+  }, [addToast])
 
-  const signin = async (username: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const signin = async (username: string, password: string): Promise<{ success: boolean }> => {
     setLoading(true)
     try {
       const response = await fetch(`${domain}/v1/auth/signin`, {
@@ -74,7 +78,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const nowSeconds = Math.floor(Date.now() / 1000)
         if (decoded.exp && decoded.exp <= nowSeconds) {
           setLoading(false)
-          return { success: false, error: 'Received expired token' }
+          addToast("Please try again.", false)
+          return { success: false }
         }
         
         setToken(data.jwtToken)
@@ -85,27 +90,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         })
         
         localStorage.setItem('token', data.jwtToken)
-        
+        addToast("Login successful!", true)
         setLoading(false)
         return { success: true }
       } else {
         setLoading(false)
-        return { 
-          success: false, 
-          error: data.message || 'Sign in failed' 
-        }
+        addToast(data.message || "Login failed. Please check your credentials.", false)
+        return { success: false }
       }
     } catch (error) {
       setLoading(false)
-      return { 
-        success: false, 
-        error: 'Network error. Please try again.' 
-      }
+      addToast("Network error. Please try again.", false)
+      return { success: false }
     }
   }
 
-
-  const register = async (username: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const register = async (username: string, password: string): Promise<{ success: boolean }> => {
     setLoading(true)
     try {
       const response = await fetch(`${domain}/v1/auth/register`, {
@@ -119,29 +119,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const data = await response.json()
 
       if (response.ok && data.res === true) {
+        addToast("Registration successful!", true)
         setLoading(false)
         return { success: true }
       } else {
+        addToast(data.message || "Registration failed. try again.", false)
         setLoading(false)
-        return { 
-          success: false, 
-          error: data.message || 'Registration failed' 
-        }
+        return { success: false }
       }
     } catch (error) {
       setLoading(false)
-      return { 
-        success: false, 
-        error: 'Network error. Please try again.' 
-      }
+      addToast("Network error.", false)
+      return { success: false }
     }
   }
-
 
   const logout = () => {
     setUser(null)
     setToken(null)
     localStorage.removeItem('token')
+    addToast("Successfully logged out.", true)
     homePage();
   }
 
