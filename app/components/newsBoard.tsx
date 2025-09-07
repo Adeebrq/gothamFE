@@ -14,20 +14,12 @@ const NewsBoard = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % messages.length);
-    }, 12000); // Changed to match animation duration
+    }, 17000); // Changed to match animation duration
     
     return () => clearInterval(interval);
   }, [messages.length]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % messages.length);
-  };
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + messages.length) % messages.length);
-  };
-
-  // Create continuous text string
   const currentMessage = messages[currentIndex];
   const repeatedText = `${currentMessage}     ${currentMessage}     ${currentMessage}`;
 
@@ -51,7 +43,7 @@ const NewsBoard = () => {
         }
         
         .animate-scroll {
-          animation: scroll 12s linear infinite;
+          animation: scroll 17s linear infinite;
         }
       `}</style>
     </div>
