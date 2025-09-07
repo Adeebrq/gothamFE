@@ -49,7 +49,12 @@ const Header = () => {
           onClick={authHandler}
           className="bg-transparent hover:bg-transparent px-4 py-2 rounded-lg transition-colors text-sm font-medium"
         >
+            {connected ? (
           <img src="/assets/logout.svg"  width="35px" height="35px" alt="" className='transition-transform duration-300 hover:scale-110' />
+            ):(
+          <img src="/assets/loginButton.svg"  width="45px" height="45px" alt="" className='transition-transform duration-300 hover:scale-110' />
+            )}
+
         </button>
       </div>
     </div>
