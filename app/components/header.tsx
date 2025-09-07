@@ -26,7 +26,15 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-transparent text-white p-0 shadow-lg z-0 custom-border-bottom">
+    <header className="bg-transparent text-white p-0 shadow-lg z-0 custom-border-bottom relative">
+           <video
+      autoPlay
+      muted
+      playsInline
+      loop
+      className="absolute top-0 left-0 w-full h-full object-cover -z-10 overflow-hidden"
+      > <source src='/assets/bg.mp4'/></video>
+
     <img src='/assets/header.svg'  className= "w-full -mt-3" alt="" />
     <div className="flex justify-between items-center -mt-10 ">
       <div className="flex items-center gap-4">

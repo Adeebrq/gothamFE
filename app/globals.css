@@ -41,13 +41,111 @@ text-shadow:
   0 2px 4px #751d45;  
 }
 
+/* RGB Color Glitch Effect */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.glitch-text:hover {
+  animation: rgb-glitch 0.4s ease-in-out infinite;
+}
+
+@keyframes rgb-glitch {
+  0%, 100% {
+    text-shadow:
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  10% {
+    text-shadow:
+      -1px 0 0 #ff0000,
+      1px 0 0 #00ff00,
+      2px 0 0 #0000ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  20% {
+    text-shadow:
+      1px 0 0 #ff0080,
+      -1px 0 0 #00ffff,
+      -2px 0 0 #ff8000,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  30% {
+    text-shadow:
+      0 -1px 0 #ff4000,
+      0 1px 0 #00ff80,
+      1px 0 0 #8000ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  40% {
+    text-shadow:
+      -2px 0 0 #ff0040,
+      2px 0 0 #40ff00,
+      0 -1px 0 #0040ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  50% {
+    text-shadow:
+      1px -1px 0 #ff8080,
+      -1px 1px 0 #80ff80,
+      0 0 0 #8080ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  60% {
+    text-shadow:
+      0 1px 0 #ffff00,
+      1px 0 0 #ff00ff,
+      -1px 0 0 #00ffff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  70% {
+    text-shadow:
+      2px 0 0 #ff4080,
+      -1px -1px 0 #80ff40,
+      1px 1px 0 #4080ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  80% {
+    text-shadow:
+      -1px 0 0 #ff6060,
+      0 -1px 0 #60ff60,
+      1px 1px 0 #6060ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+  90% {
+    text-shadow:
+      1px 0 0 #ff2020,
+      -2px 0 0 #20ff20,
+      0 1px 0 #2020ff,
+      0 0 10px #66b3ff,                   
+      0 0 2px #41c3fc,                    
+      0 2px 4px #318fb5;
+  }
+}
 
 .sub-text{
   font-family: "CustomFont" ;
   text-transform: lowercase;
 }
-
-
 
 :root {
   --background: #1a1a1a;
@@ -102,7 +200,6 @@ body {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 .custom-border-bottom {
   border-bottom: 2px solid rgba(212, 237, 255, 0.7);
   border-radius: 0;
@@ -124,7 +221,14 @@ body {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
+.custom-border-all-red{
+  border: 2px solid rgba(255, 212, 212, 0.7);
+  border-radius: 0;
+  box-shadow:
+    0px 3px 10px 1px rgba(255, 102, 102, 0.7),     /* vertical glow only: no horizontal offset or spread */
+    inset 0px -3px 8px 0px rgba(241, 161, 161, 0.7); /* inner glow from bottom, no horizontal offset or spread */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
 .custom-border:focus {
   filter: drop-shadow(0 0 12px rgba(48, 138, 255, 1));               
@@ -137,6 +241,7 @@ body {
   transition: box-shadow 0.3s ease, border-color 0.3s ease;   
   filter: blur(0.5px);  
 }
+
 .status{
   filter: blur(0.5px);
   animation: pulse-combined 2.5s ease-in-out infinite;
