@@ -9,7 +9,6 @@ const Landingpage = () => {
     <div className='w-full h-full'>
       <Header/>
       <HeroSection />
-      <NewsBoard />
     </div>
   )
 }

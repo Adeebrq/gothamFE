@@ -2,17 +2,18 @@
 import React from 'react'
 import EncryptedTextReveal from './EncryptedTextReveal'
 import { useRouter } from 'next/navigation'
+import NewsBoard from './newsBoard'
 
 const HeroSection = () => {
     const router = useRouter();
   return (
-    <div className="relative min-h-screen">
+    <div className="relative h-[90vh] overflow-hidden">
       <video
         autoPlay
         muted
         playsInline
         loop
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10 overflow-hidden"
+        className="absolute top-0 left-0 w-full h-[100%] object-cover -z-10"
       > 
         <source src='/assets/heroBg.MP4'/>
       </video>
@@ -42,7 +43,7 @@ const HeroSection = () => {
       </div>
 
       {/* Medium screens (tablets) */}
-      <div className='hidden md:block lg:hidden px-6 py-8 flex flex-col justify-center min-h-screen'>
+      <div className='hidden md:block lg:hidden px-6 py-8 flex flex-col justify-center h-full'>
         <div className='max-w-2xl mx-auto text-center'>
           <div className='reg-text text-4xl md:text-5xl my-4 leading-tight'>
             <div className="glitch-text">
@@ -67,7 +68,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className='block md:hidden px-4 py-6 flex flex-col justify-center min-h-screen'>
+      <div className='block md:hidden px-4 py-6 flex flex-col justify-center h-full'>
         <div className='text-center'>
           <div className='reg-text text-2xl sm:text-3xl my-4 leading-tight'>
             <div className="glitch-text">
@@ -90,6 +91,10 @@ const HeroSection = () => {
             Enter Gotham's Chatroom
           </button>
         </div>
+      </div>
+      
+      <div className="absolute left-0 right-0 bottom-0 z-10">
+        <NewsBoard/>
       </div>
     </div>
   )
