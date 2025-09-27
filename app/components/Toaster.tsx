@@ -104,7 +104,7 @@ export default function Toast({ message, success, onClose }: ToastProps) {
       `}</style>
       
       <img 
-        src="assets/toastbg.svg" 
+        src="assets/toastBg.svg" 
         alt="Toast background" 
         className="w-[300px] h-[100px] object-contain"
       />
