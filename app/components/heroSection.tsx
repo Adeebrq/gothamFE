@@ -13,9 +13,12 @@ const HeroSection = () => {
         muted
         playsInline
         loop
+        preload="metadata"
         className="absolute top-0 left-0 w-full h-[100%] object-cover -z-10"
       > 
-        <source src='/assets/heroBg.MP4'/>
+        <source src='/assets/heroBG.MP4' type="video/mp4"/>
+        <source src='/assets/heroBG.mp4' type="video/mp4"/>
+        Your browser does not support the video tag.
       </video>
       
       {/* Large screens - preserve existing layout */}
