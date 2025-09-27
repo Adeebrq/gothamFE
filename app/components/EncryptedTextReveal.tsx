@@ -13,15 +13,28 @@ function scrambleText(text: string) {
     .join('');
 }
 
+// Create a consistent initial scramble for SSR
+function createInitialScramble(text: string) {
+  return text
+    .split('')
+    .map((char, index) => (char === ' ' ? ' ' : symbols.charAt(index % symbols.length)))
+    .join('');
+}
+
 const EncryptedTextReveal: React.FC<{ text: string; duration?: number }> = ({
   text,
   duration = 500,
 }) => {
-  const [displayText, setDisplayText] = useState(scrambleText(text));
+  const [displayText, setDisplayText] = useState(createInitialScramble(text));
   const [isRevealed, setIsRevealed] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (isRevealed) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || isRevealed) return;
 
     const interval = setInterval(() => {
       setDisplayText(scrambleText(text));
@@ -37,7 +50,7 @@ const EncryptedTextReveal: React.FC<{ text: string; duration?: number }> = ({
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [text, duration, isRevealed]);
+  }, [text, duration, isRevealed, isMounted]);
 
   return <span>{displayText}</span>;
 };

@@ -101,7 +101,7 @@ const ChatSidebar = () => {
         </div>
       </div>
 
-      <div className="p-0 custom-border-top bg-transparent relative">
+      {/* <div className="p-0 custom-border-top bg-transparent relative">
       <video
       autoPlay
       muted
@@ -109,7 +109,7 @@ const ChatSidebar = () => {
       loop
       className="w-[1080px] h-auto "
       > <source src='/assets/map4.mp4'/></video>
-      </div>
+      </div> */}
 
       {/* Connection Status */}
       <div className="p-3.5 custom-border-top bg-transparent relative">
