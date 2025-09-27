@@ -268,7 +268,7 @@ const ScrollVideo: React.FC<ScrollVideoProps> = ({
               onClick={() => router.push("/login")}
               className={`relative z-[102] px-6 py-4 rounded text-lg translate-y-64 transition-colors reg-text custom-border-all bg-[#41c4fc5a] hover:bg-[#65d1ff9f] text-white cursor-pointer`}
             >
-              Enter Gotham's Chatroom
+              Enter Gotham&apos;s Chatroom
             </button>
             </div>
           )}

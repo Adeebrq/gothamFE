@@ -49,11 +49,11 @@ const formatDateFromTimestamp = (timestamp: string): string => {
 }
 
 // Helper function to process message and add date field
-const processMessage = (message: any): Message => {
+const processMessage = (message: Record<string, unknown>): Message => {
   return {
     ...message,
-    date: formatDateFromTimestamp(message.sent_at)
-  }
+    date: formatDateFromTimestamp(message.sent_at as string)
+  } as Message
 }
 
 export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

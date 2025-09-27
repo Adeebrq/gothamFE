@@ -38,7 +38,7 @@ const HeroSection = () => {
           onClick={() => router.push("/login")}
           className={`mt-10 relative z-[102] p-3 rounded text-base mb-4 transition-colors reg-text custom-border-all bg-[#41c4fc5a] hover:bg-[#65d1ff9f] text-white cursor-pointer`}
         >
-          Enter Gotham's Chatroom
+          Enter Gotham&apos;s Chatroom
         </button>
       </div>
 
@@ -63,7 +63,7 @@ const HeroSection = () => {
             onClick={() => router.push("/login")}
             className={`relative z-[102] px-6 py-4 rounded text-lg transition-colors reg-text custom-border-all bg-[#41c4fc5a] hover:bg-[#65d1ff9f] text-white cursor-pointer`}
           >
-            Enter Gotham's Chatroom
+            Enter Gotham&apos;s Chatroom
           </button>
         </div>
       </div>
@@ -88,7 +88,7 @@ const HeroSection = () => {
             onClick={() => router.push("/login")}
             className={`relative z-[102] px-4 py-3 rounded text-base transition-colors reg-text custom-border-all bg-[#41c4fc5a] hover:bg-[#65d1ff9f] text-white cursor-pointer w-full max-w-xs`}
           >
-            Enter Gotham's Chatroom
+            Enter Gotham&apos;s Chatroom
           </button>
         </div>
       </div>
